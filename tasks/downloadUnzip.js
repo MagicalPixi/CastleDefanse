@@ -12,7 +12,7 @@ var spawn = require('child_process').spawn;
 
 var packageJsonPath = path.resolve(__dirname,'../package.json');
 
-var server = 'http://localhost:1414/';//http://www.magicalpixi.com/
+var server = 'http://www.magicalpixi.com/'
 //资源名字
 var downloadMaterialNames = [];
 //var downloadMaterialNames = [
@@ -46,7 +46,7 @@ module.exports = function (gulp) {
       return scenes[sceneName]
     }).reduce(function (resources,nextResources) {
       return resources.concat(nextResources);
-    });
+    },[]);
 
     downloadMaterialNames = [...new Set(resources.concat(sceneResources))]
 
