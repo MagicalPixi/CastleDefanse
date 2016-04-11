@@ -20,13 +20,14 @@
     "webpack-dev-server": "^1.14.1"
   },
   "resources": [
-    "skeleton"
   ],
   "scenes": {
   },
-  "permission":{
-  },
+  "scenesEdit": [
+  ],
+  "permission": {},
   "dependencies": {
-    "ejs": "^2.4.1"
+    "ejs": "^2.4.1",
+    "pixi-lib": "^1.12.10"
   }
 }

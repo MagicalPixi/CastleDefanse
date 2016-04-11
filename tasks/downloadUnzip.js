@@ -10,9 +10,12 @@ var unzip = require('gulp-unzip');
 var fs = require('fs');
 var spawn = require('child_process').spawn;
 
+var downloadZip = require('./lib/downloadZip');
+var unzipDownload = require('./lib/unzipDownload');
+
 var packageJsonPath = path.resolve(__dirname,'../package.json');
 
-var server = 'http://www.magicalpixi.com/'
+var server = 'http://localhost:1414/';//http://www.magicalpixi.com/
 //资源名字
 var downloadMaterialNames = [];
 //var downloadMaterialNames = [
@@ -21,6 +24,9 @@ var downloadMaterialNames = [];
 
 //资源下载链接
 var downloadUrls = [];
+
+//根据package.json的sceneEdit字段，建立
+//精灵已经包含在场景中
 
 var filesInZip = [
   'sprite.js',
@@ -48,8 +54,9 @@ module.exports = function (gulp) {
       return resources.concat(nextResources);
     },[]);
 
-    downloadMaterialNames = [...new Set(resources.concat(sceneResources))]
+    downloadMaterialNames = [...new Set(resources.concat(sceneResources))];
 
+    //构建 下载精灵 和场景 的链接
     downloadUrls = downloadMaterialNames.map(function (name) {
       return `${server}api/buildDownloadZip?name=${name}`;
     });
@@ -57,58 +64,16 @@ module.exports = function (gulp) {
 
   //下载，
   gulp.task('down-ing',['down-before'],function () {
-    var i = 0;
 
-    return download(downloadUrls)
-      .pipe(rename(function (path) {
-        path.basename = downloadMaterialNames[i];
-        path.extname = '.zip';
-        return path;
-      }))
-      .pipe(gulp.dest(function(args){
-        var nameIndex = parseInt(i++);
-
-        return path.join(saveSpritesDir,downloadMaterialNames[nameIndex]);
-      }));
+    return downloadZip(gulp,downloadUrls,saveSpritesDir,downloadMaterialNames);
   });
-
 
   //解压
   gulp.task('down',['down-ing'], function () {
     downloadMaterialNames.map(function (name) {
-      var cwd = path.join(saveSpritesDir,name);
+      var zipFile = path.join(saveSpritesDir,name,name);
 
-      var indexJs = path.join(cwd,'index.js');
-
-      var args = [
-        '-o',
-        name+'.zip',
-      ];
-
-      if(fs.existsSync(indexJs)){
-        args = args.concat(filesInZip);
-      }
-
-      return new Promise(function (resolve) {
-
-        console.log(cwd,name);
-
-        var unzip = spawn('unzip',args,{
-          cwd:cwd
-        });
-
-        unzip.on('error', function (err) {
-          console.log('err:',err);
-        });
-        unzip.stderr.on('data', function (data){
-          console.log('data:',data.toString());
-        });
-
-        unzip.on('close', function (code) {
-            console.log('close code',code);
-            resolve();
-          });
-      });
+      return  unzipDownload(zipFile);
     });
   });
 };
