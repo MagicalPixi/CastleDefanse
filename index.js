@@ -1,7 +1,7 @@
-var end = require('./end')
-var game = require('./game')
-var guide = require('./guide')
-var start = require('./start')
+//var end = require('./end')
+//var game = require('./game')
+//var guide = require('./guide')
+//var start = require('./start')
 
 var pixilib = require('pixi-lib')
 var renderer = new PIXI.autoDetectRenderer(600, 1004, {
