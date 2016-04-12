@@ -19,7 +19,10 @@
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
   },
-  "resources": [],
+  "resources": [
+    "grass_bg",
+    "skeleton"
+  ],
   "scenes": {},
   "scenesEdit": [],
   "permission": {},
