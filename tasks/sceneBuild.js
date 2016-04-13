@@ -30,13 +30,13 @@ module.exports = function (gulp) {
 
   var scenes = null;
 
-  gulp.task('scene-before', function () {
+  gulp.task('scene-build-before', function () {
     var packageJsonObj = JSON.parse(fs.readFileSync(packageJsonPath).toString());
 
     scenes = packageJsonObj.scenes;
   });
 
-  gulp.task('scene',['scene-before'], function () {
+  gulp.task('scene-build',['scene-build-before'], function () {
 
     Object.keys(scenes).map(function (sceneName) {
       var sceneDir = path.join(scenesDir,sceneName);

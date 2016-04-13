@@ -22,7 +22,7 @@ if(!fs.existsSync(saveSpritesDir)){
   fs.mkdirSync(saveSpritesDir);
 }
 
-var server = 'http://localhost:1414';//http://www.magicalpixi.com/
+var server = 'http://www.magicalpixi.com/'
 
 
 module.exports = function (gulp) {
@@ -35,6 +35,8 @@ module.exports = function (gulp) {
 
     scenes = packageJsonObj.scenes;
     scenesEdit = packageJsonObj.scenesEdit;
+
+    console.log(scenesEdit);
   });
 
   gulp.task('scene',['scene-before'], function () {

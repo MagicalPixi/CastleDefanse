@@ -2,13 +2,29 @@ var pixiLib = require('pixi-lib');
 
 var args = [{
 
-  textures:pixiLib.getTextures('grass_bg'),
+  textures:pixiLib.getTextures('castle'),
 
   
 
     
 
-    "spriteName" :  "grass_bg" ,
+    "spriteName" :  "castle" ,
+
+    
+
+  
+
+    
+
+    "scale.x" :  0.1 ,
+
+    
+
+  
+
+    
+
+    "scale.y" :  0.1 ,
 
     
 

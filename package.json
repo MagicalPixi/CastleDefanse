@@ -21,10 +21,12 @@
   },
   "resources": [
     "grass_bg",
-    "skeleton"
+    "skeleton",
+    "castle"
   ],
   "scenes": {},
-  "scenesEdit": [],
+  "scenesEdit": [
+  ],
   "permission": {},
   "dependencies": {
     "ejs": "^2.4.1",
