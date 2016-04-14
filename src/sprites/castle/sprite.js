@@ -16,15 +16,7 @@ var args = [{
 
     
 
-    "scale.x" :  0.1 ,
-
-    
-
-  
-
-    
-
-    "scale.y" :  0.1 ,
+    "animationSpeed" :  0.1 ,
 
     
 
@@ -41,7 +33,7 @@ var args = [{
 
 
 module.exports = function spriteFn(){
-  var mySprite = pixiLib.getIm.apply(pixiLib,args);
+  var mySprite = pixiLib.getMc.apply(pixiLib,args);
 
   return mySprite;
 }
