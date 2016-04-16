@@ -1,6 +1,6 @@
 var config = {
   resource: {
-    json: ['castle'],
+    json: ['castle','skeleton'],
     png: ['grass_bg']
   }
 }

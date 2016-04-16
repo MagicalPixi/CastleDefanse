@@ -1,20 +1,34 @@
 var mySpriteFn = require('./sprite.js');
 
-var castle1L = mySpriteFn();
-var castle1R = mySpriteFn();
-var castle2L = mySpriteFn();
-var castle2R = mySpriteFn();
+function prototypeWrapper(obj){
 
-castle1L.x = 100;
-castle1L.y = 100;
+  return obj;
+}
 
-castle1R.x = 410;
-castle1R.y = 100;
+function positionSet(obj,p){
+  var positionMap = {
+    '1L':[160,160],
+    '1R':[490,160],
+    '2L':[160,410],
+    '2R':[490,410],
+  };
 
-castle2L.x = 100;
-castle2L.y = 350;
+  var position = positionMap[p];
 
-castle2R.x = 410;
-castle2R.y = 350;
+  obj.x = position[0];
+  obj.y = position[1];
 
-module.exports = [castle1L,castle1R,castle2L,castle2R];
+  return obj;
+}
+
+module.exports = function (arg) {
+
+  var castle = mySpriteFn();
+
+  castle.anchor.x = 0.5;
+  castle.anchor.y = 0.5;
+
+  castle = positionSet(castle,arg.position);
+
+  return castle;
+};
