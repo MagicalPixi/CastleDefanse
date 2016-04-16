@@ -17,18 +17,31 @@ function getStartX(p){
 function prototypeWrapper(obj){
 
   obj.render = function () {
-    this.y += this.moveSpeed/10;
+    if(this.moveState){
+      this.y += this.moveSpeed/10;
+    }
+  };
+
+  obj.move = function () {
+    this.moveState = true;
+  };
+  obj.moveStop = function () {
+    this.moveState = false;
   };
 
   obj.attack = function (attackedObj) {
     attackedObj.injure(this.atk);
   };
 
+  obj.dead = function () {
+
+  };
+
   return obj;
 }
 
 
-module.exports = function(arg){
+module.exports = function skeletonFn(arg){
 
   var mySprite = mySpriteFn();
 
@@ -38,12 +51,15 @@ module.exports = function(arg){
   //攻击力
   mySprite.atk = 10;
 
-  mySprite.moveSpeed = 2;
-
+  mySprite.moveSpeed = 5;
+  mySprite.moveState = true;
 
   mySprite = prototypeWrapper(mySprite);
 
   mySprite.playAction0(true);
+
+
+  skeletonFn.skeletons = (skeletonFn.skeletons || []).concat(mySprite);
 
   return mySprite;
 };
