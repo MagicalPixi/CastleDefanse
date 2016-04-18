@@ -1,15 +1,11 @@
 var loader = require('../../loader.js')
 var params = require('./params.js');
 
-
 function addSkeleton(stage, skeletonFn, cb) {
-
-
   if (cb()) {
     var skeleton = skeletonFn({
       position: Math.random() > 0 ? 'left' : 'right'
     });
-
     stage.addChildAt(skeleton, 1);
     //setTimeout(addSkeleton.bind(null,stage,skeletonFn,cb),10000);
   }
@@ -40,9 +36,7 @@ module.exports = function (render) {
     });
 
     var castleArr = [castle1L, castle1R, castle2L, castle2R];
-
     var skeletonFn = require('../../sprites/skeleton');
-
     var stage = new PIXI.Container();
 
     stage.render = function () {

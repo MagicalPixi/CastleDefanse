@@ -1,7 +1,6 @@
 var mySpriteFn = require('./sprite.js');
 
 function prototypeWrapper(obj){
-
   return obj;
 }
 
@@ -22,13 +21,9 @@ function positionSet(obj,p){
 }
 
 module.exports = function (arg) {
-
   var castle = mySpriteFn();
-
   castle.anchor.x = 0.5;
   castle.anchor.y = 0.5;
-
   castle = positionSet(castle,arg.position);
-
   return castle;
 };
