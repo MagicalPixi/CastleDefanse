@@ -20,17 +20,38 @@ function prototypeWrapper(obj){
     if(this.moveState){
       this.y += this.moveSpeed/10;
     }
+    if(this.atkState && this.renderCount%60 === 0){
+      this.attack();
+    }
   };
 
   obj.move = function () {
     this.moveState = true;
+    this.playAction0(true);
   };
   obj.moveStop = function () {
     this.moveState = false;
   };
 
-  obj.attack = function (attackedObj) {
-    attackedObj.injure(this.atk);
+  obj.setAttackTarget = function (target) {
+    this.attackTarget = target;
+
+    this.moveStop();
+    this.attack();
+  };
+
+  obj.attack = function () {
+    this.atkState = true;
+    var isDead = this.attackTarget.injure(this.atk);
+
+    if(isDead){
+      this.move();
+      this.attackStop();
+    }
+  };
+  obj.attackStop = function () {
+    this.atkState = false;
+    this.attackTarget = null;
   };
 
   obj.dead = function () {
@@ -49,7 +70,8 @@ module.exports = function skeletonFn(arg){
   mySprite.y = 0;
 
   //攻击力
-  mySprite.atk = 10;
+  mySprite.atk = 17;
+  mySprite.atkState = false;
 
   mySprite.moveSpeed = 5;
   mySprite.moveState = true;
