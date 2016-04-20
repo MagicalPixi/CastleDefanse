@@ -17,7 +17,7 @@ function addSkeleton(stage, skeletonFn, cb) {
 
 
 function detectCastleSkeleton(castle,skeleton) {
-  return castle.y - skeleton.y < 120;
+  return castle.y - skeleton.y < 120 && Math.abs(castle.x - skeleton.x) < 100;
 }
 
 module.exports = function (render) {
@@ -51,8 +51,7 @@ module.exports = function (render) {
         if(skeleton.moveState){
           castleArr.map(function (castle) {
             if(detectCastleSkeleton(castle,skeleton)){
-              console.log('卧槽')
-              skeleton.moveStop();
+              skeleton.setAttackTarget(castle);
               skeleton.playAction1(true);
             }
           })
@@ -68,7 +67,6 @@ module.exports = function (render) {
     });
 
     addSkeleton(stage, skeletonFn, function () {
-
 
       return true;
     });
