@@ -15,7 +15,6 @@ function addSkeleton(stage, skeletonFn, cb) {
   }
 }
 
-
 function detectCastleSkeleton(castle,skeleton) {
   return castle.y - skeleton.y < 120 && Math.abs(castle.x - skeleton.x) < 100;
 }
@@ -50,7 +49,7 @@ module.exports = function (render) {
       skeletonFn.skeletons.map(function (skeleton) {
         if(skeleton.moveState){
           castleArr.map(function (castle) {
-            if(detectCastleSkeleton(castle,skeleton)){
+            if(detectCastleSkeleton(castle,skeleton) && !castle.deathState){
               skeleton.setAttackTarget(castle);
               skeleton.playAction1(true);
             }
