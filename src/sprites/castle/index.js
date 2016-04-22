@@ -18,8 +18,12 @@ function prototypeWrapper(obj){
 
   obj.dead = function () {
     this.deathState = true;
-    this.parent.setChildIndex(this,1);
-    this.gotoAndStop(this.deathFrame);
+    if(this.parent){
+      this.parent.setChildIndex(this,1);
+      this.gotoAndStop(this.deathFrame);
+
+      this.parent.removeChild(this);
+    }
   };
 
   return obj;

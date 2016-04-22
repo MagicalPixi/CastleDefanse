@@ -12,14 +12,29 @@ var args = [{
 
     
 
+  
 
     
 
     "animationSpeed" :  0.1 ,
 
-  "scale.x":1.6,
-  "scale.y":1.6,
+    
 
+  
+
+    
+
+    "scale.x" :  1.6 ,
+
+    
+
+  
+
+    
+
+    "scale.y" :  1.6 ,
+
+    
 
   
 }]
