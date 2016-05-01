@@ -6,11 +6,21 @@ function prototypeWrapper(obj){
 
     if(this.currentHp < 0) {
 
-      return true;
+      this.dead();
 
+      return true;
     }else{
       var frame = parseInt((this.hp - this.currentHp)/this.changeHp);
       this.gotoAndStop(frame);
+    }
+  };
+  obj.dead = function () {
+    this.deathState = true;
+    if(this.parent){
+      this.parent.setChildIndex(this,1);
+      this.gotoAndStop(this.deathFrame);
+
+      this.parent.removeChild(this);
     }
   };
   return obj;
@@ -43,6 +53,9 @@ module.exports = function (arg) {
   castle.currentHp = 99;
   //每损失这个hp，就发生形状变化
   castle.changeHp = 20;
+  //死亡时候的所在的状态帧数
+  castle.deathState = false;
+  castle.deathFrame = 4;
   castle = positionSet(castle,arg.position);
   return castle;
 };

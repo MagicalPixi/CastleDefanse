@@ -4,16 +4,11 @@ var params = require('./params.js');
 function addSkeleton(stage, skeletonFn, cb) {
   if (cb()) {
     var skeleton = skeletonFn({
-      position: Math.random() > 0 ? 'left' : 'right'
+      position: Math.random() > 0.5 ? 'left' : 'right'
     });
     stage.addChildAt(skeleton, 1);
-    //setTimeout(addSkeleton.bind(null,stage,skeletonFn,cb),10000);
+    setTimeout(addSkeleton.bind(null,stage,skeletonFn,cb),1000);
   }
-}
-
-
-function detectCastleSkeleton(castle,skeleton) {
-  return castle.y - skeleton.y < 120 && Math.abs(castle.x - skeleton.x) < 100;
 }
 
 module.exports = function (render) {
@@ -43,12 +38,17 @@ module.exports = function (render) {
 
       skeletonFn.skeletons.map(function (skeleton) {
         if(skeleton.moveState){
-          castleArr.map(function (castle) {
-            if(detectCastleSkeleton(castle,skeleton)){
+
+          castleArr  = castleArr.filter(function (castle,i) {
+            return !castle.deathState;
+          }).map(function (castle) {
+
+            if(skeleton.detectCastle(castle,skeleton)){
               skeleton.setAttackTarget(castle);
               skeleton.playAction1(true);
             }
-          })
+            return castle;
+          });
         }
       });
     };
@@ -60,9 +60,12 @@ module.exports = function (render) {
       stage.addChild(castle);
     });
 
-    addSkeleton(stage, skeletonFn, function () {
+    addSkeleton(stage, function (args) {
 
-      return true;
+      return skeletonFn(args);
+    }, function () {
+
+      return skeletonFn.skeletons.length <10;
     });
 
 

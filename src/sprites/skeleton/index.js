@@ -1,9 +1,10 @@
 var mySpriteFn = require('./sprite.js');
 
 function getStartX(p){
+  var r = Math.random();
   var startX = {
-    left:110,
-    right:430
+    left:110 + r*50 - 25,
+    right:430 + r*50 - 25
   };
 
   if(startX[p]) {
@@ -12,7 +13,6 @@ function getStartX(p){
     throw new ERROR('getStartX');
   }
 }
-
 
 function prototypeWrapper(obj){
 
@@ -23,6 +23,9 @@ function prototypeWrapper(obj){
     if(this.atkState && this.renderCount%60 === 0){
       this.attack();
     }
+    if(this.y > 1004 && this.parent){
+      this.parent.removeChild(this);
+    }
   };
 
   obj.move = function () {
@@ -31,6 +34,10 @@ function prototypeWrapper(obj){
   };
   obj.moveStop = function () {
     this.moveState = false;
+  };
+
+  obj.detectCastle = function(castle) {
+    return castle.y - this.y < 120 && Math.abs(castle.x - this.x) < 100 && !castle.deathState
   };
 
   obj.setAttackTarget = function (target) {
@@ -62,7 +69,7 @@ function prototypeWrapper(obj){
 }
 
 
-module.exports = function skeletonFn(arg){
+function skeletonFn(arg){
 
   var mySprite = mySpriteFn();
 
@@ -70,7 +77,7 @@ module.exports = function skeletonFn(arg){
   mySprite.y = 0;
 
   //攻击力
-  mySprite.atk = 17;
+  mySprite.atk = 1;
   mySprite.atkState = false;
 
   mySprite.moveSpeed = 5;
@@ -80,8 +87,11 @@ module.exports = function skeletonFn(arg){
 
   mySprite.playAction0(true);
 
-
-  skeletonFn.skeletons = (skeletonFn.skeletons || []).concat(mySprite);
+  skeletonFn.skeletons = (skeletonFn.skeletons).concat(mySprite);
 
   return mySprite;
 };
+
+skeletonFn.skeletons = [];
+
+module.exports = skeletonFn;
