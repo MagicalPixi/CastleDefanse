@@ -1,4 +1,4 @@
-var pixiLib = require('pixi-Lib')
+var pixiLib = require('pixi-lib')
 
 var params = {
   textures: pixiLib.getTextures('card'),

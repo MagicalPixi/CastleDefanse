@@ -32,6 +32,7 @@ module.exports = function (render) {
 
     var castleArr = [castle1L, castle1R, castle2L, castle2R];
     var skeletonFn = require('../../sprites/skeleton');
+    var cardFactory = require('../../sprites/card')
     var stage = new PIXI.Container();
 
     stage.render = function () {
@@ -54,7 +55,16 @@ module.exports = function (render) {
     };
 
     stage.addChild(grassBg);
-
+    var card = cardFactory()
+    var secondCard = cardFactory('second')
+    var thirdCard = cardFactory('third')
+    var forthCard = cardFactory('forth')
+    var prepareCard = cardFactory('prepare')
+    stage.addChild(card)
+    stage.addChild(secondCard)
+    stage.addChild(thirdCard)
+    stage.addChild(forthCard)
+    stage.addChild(prepareCard)
     castleArr.forEach(function (castle) {
 
       stage.addChild(castle);
