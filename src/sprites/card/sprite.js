@@ -5,7 +5,9 @@ var params = {
   spriteName: 'card'
 }
 
-module.exports = function spriteFn() {
-  var mySprite = pixiLib.getIm(params)
+module.exports = function spriteFn(config) {
+  config = config || {}
+  var newParams = Object.assign(config, params)
+  var mySprite = pixiLib.getIm(newParams)
   return mySprite
 }
