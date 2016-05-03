@@ -2,7 +2,9 @@ var pixiLib = require('pixi-lib')
 
 var params = {
   textures: pixiLib.getTextures('card'),
-  spriteName: 'card'
+  spriteName: 'card',
+  'anchor.x': 0.5,
+  'anchor.y': 0.5
 }
 
 module.exports = function spriteFn(config) {
