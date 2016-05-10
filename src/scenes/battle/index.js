@@ -7,7 +7,7 @@ function addSkeleton(stage, skeletonFn, cb) {
       position: Math.random() > 0.5 ? 'left' : 'right'
     });
     stage.addChildAt(skeleton, 1);
-    setTimeout(addSkeleton.bind(null,stage,skeletonFn,cb),1000);
+    setTimeout(addSkeleton.bind(null,stage,skeletonFn,cb),2000);
   }
 }
 
@@ -31,9 +31,13 @@ module.exports = function (render) {
     });
 
     var castleArr = [castle1L, castle1R, castle2L, castle2R];
+
     var skeletonFn = require('../../sprites/skeleton');
+    var skeletonArcherFn = require('../../sprites/skeleton_archer');
+
     var cardFactory = require('../../sprites/card').getSprite
     var cardKeys = require('../../sprites/card').keys
+
     var stage = new PIXI.Container();
 
     stage.render = function () {
@@ -48,6 +52,22 @@ module.exports = function (render) {
             if(skeleton.detectCastle(castle,skeleton)){
               skeleton.setAttackTarget(castle);
               skeleton.playAction1(true);
+            }
+            return castle;
+          });
+        }
+      });
+
+      skeletonArcherFn.skeletons.map(function (skeleton) {
+        if(skeleton.moveState){
+
+          castleArr  = castleArr.filter(function (castle,i) {
+            return !castle.deathState;
+          }).map(function (castle) {
+
+            if(skeleton.detectCastle(castle,skeleton)){
+              skeleton.setAttackTarget(castle);
+              skeleton.playAction0(true);
             }
             return castle;
           });
@@ -71,12 +91,17 @@ module.exports = function (render) {
       stage.addChild(castle);
     });
 
-    addSkeleton(stage, function (args) {
 
+    addSkeleton(stage, function (args) {
+      return skeletonArcherFn(args);
+    }, function () {
+      return skeletonArcherFn.skeletons.length <4;
+    });
+
+    addSkeleton(stage, function (args) {
       return skeletonFn(args);
     }, function () {
-
-      return skeletonFn.skeletons.length <10;
+      return skeletonFn.skeletons.length <4;
     });
 
 

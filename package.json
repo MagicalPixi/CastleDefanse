@@ -22,7 +22,8 @@
   "resources": [
     "grass_bg",
     "skeleton",
-    "castle"
+    "castle",
+    "skeleton_archer"
   ],
   "scenes": {},
   "scenesEdit": [],

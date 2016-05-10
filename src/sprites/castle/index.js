@@ -28,8 +28,8 @@ function prototypeWrapper(obj){
 
 function positionSet(obj,p){
   var positionMap = {
-    '1L':[160,160],
-    '1R':[490,160],
+    '1L':[160,250],
+    '1R':[490,250],
     '2L':[160,410],
     '2R':[490,410],
   };

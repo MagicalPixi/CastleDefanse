@@ -2,13 +2,21 @@ var pixiLib = require('pixi-lib');
 
 var args = [{
 
-  textures:pixiLib.getTextures('skeleton'),
+  textures:pixiLib.getTextures('skeleton_archer'),
 
   
 
     
 
-    "spriteName" :  "skeleton" ,
+    "animationSpeed" :  0.1 ,
+
+    
+
+  
+
+    
+
+    "spriteName" :  "skeleton_archer" ,
 
     
 
@@ -29,18 +37,6 @@ var args = [{
     
 
   
-
-    
-
-    "animationSpeed" :  0.1 ,
-
-    
-
-  
-
-    
-
-  
 }]
 
 
@@ -53,11 +49,11 @@ var args = [{
 
     
 
-      10,
+      9,
 
     
 
-      15,
+      14,
 
     
   ]);
